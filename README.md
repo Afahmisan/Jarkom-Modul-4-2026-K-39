@@ -1176,7 +1176,7 @@ ip route replace default via 10.83.16.89
 
 ## 9. Konfigurasi Statis 25 Host Container & Otomatisasi GNS3 API
 
-Seluruh 25 *node host* di GNS3 dikonfigurasi melalui file `/root/script.sh` masing-masing (tersedia lengkap pada direktori [script_bash/hosts/](script_bash/hosts/)) atau dieksekusi sekaligus melalui skrip otomatisasi Python [auto_gns3_modul4.py](auto_gns3_modul4.py) yang terhubung ke GNS3 REST API (`http://10.4.89.247`).
+Seluruh 25 *node host* di GNS3 dikonfigurasi melalui file `/root/script.sh` masing-masing (tersedia lengkap pada direktori [script_bash/hosts/](script_bash/hosts/)).
 
 #### Contoh Skrip Host Lain (`script_bash/hosts/lain.sh`):
 ```bash
