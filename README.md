@@ -906,7 +906,7 @@ Agar tidak terjadi pemborosan ruang alamat (*zero address gap*), penggabungan di
 
 Dari hasil penggabungan puncak **`H1` (`10.83.0.0/19`)**, blok alamat diturunkan kembali ke setiap cabang anak kiri (`Gabungan 1`) dan anak kanan (`Gabungan 2`). Karena seluruh blok mulai dari `B1 (/21)` hingga `C1 (/24)` di bawah `G1 (/20)` berukuran penuh ($4.096	ext{ IP}$), maka `F2 (/25)` langsung menempati batas awal blok `/20` kedua yaitu `10.83.16.0/25` tanpa ada satu pun alamat IP yang terbuang di antaranya:
 
-![Pohon Pembagian IP CIDR](tree_pembagian_ip_cidr_10.83.png)
+![Pohon Pembagian IP CIDR](pohon cidr.png)
 
 ## 4. Rencana Pengalamatan & Tabel Subnetting CIDR (A1 - A25)
 
