@@ -1,0 +1,22 @@
+enable
+configure terminal
+hostname Schumann
+interface FastEthernet0/0
+ip address 10.83.16.36 255.255.255.248
+no shutdown
+exit
+interface FastEthernet0/1
+ip address 10.83.16.41 255.255.255.248
+no shutdown
+exit
+interface FastEthernet1/0
+ip address 10.83.16.69 255.255.255.252
+no shutdown
+exit
+ip route 10.83.4.0 255.255.252.0 10.83.16.70
+ip route 10.83.0.0 255.255.252.0 10.83.16.34
+ip route 10.83.8.0 255.255.254.0 10.83.16.35
+ip route 10.83.15.192 255.255.255.192 10.83.16.35
+ip route 0.0.0.0 0.0.0.0 10.83.16.33
+end
+write memory

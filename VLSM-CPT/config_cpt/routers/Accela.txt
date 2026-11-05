@@ -1,0 +1,14 @@
+enable
+configure terminal
+hostname Accela
+interface FastEthernet0/0
+ip address 10.83.16.70 255.255.255.252
+no shutdown
+exit
+interface FastEthernet0/1
+ip address 10.83.4.1 255.255.252.0
+no shutdown
+exit
+ip route 0.0.0.0 0.0.0.0 10.83.16.69
+end
+write memory

@@ -1,0 +1,38 @@
+enable
+configure terminal
+hostname Wired
+interface FastEthernet0/0
+ip address 10.83.16.58 255.255.255.252
+no shutdown
+exit
+interface FastEthernet0/1
+ip address 10.83.16.33 255.255.255.248
+no shutdown
+exit
+interface FastEthernet1/0
+ip address 10.83.16.61 255.255.255.252
+no shutdown
+exit
+interface FastEthernet1/1
+ip address 10.83.16.65 255.255.255.252
+no shutdown
+exit
+ip route 10.83.14.0 255.255.255.128 10.83.16.57
+ip route 10.83.0.0 255.255.252.0 10.83.16.34
+ip route 10.83.8.0 255.255.254.0 10.83.16.35
+ip route 10.83.15.192 255.255.255.192 10.83.16.35
+ip route 10.83.4.0 255.255.252.0 10.83.16.36
+ip route 10.83.16.40 255.255.255.248 10.83.16.36
+ip route 10.83.16.68 255.255.255.252 10.83.16.36
+ip route 10.83.12.0 255.255.254.0 10.83.16.62
+ip route 10.83.15.64 255.255.255.192 10.83.16.62
+ip route 10.83.10.0 255.255.254.0 10.83.16.66
+ip route 10.83.14.128 255.255.255.128 10.83.16.66
+ip route 10.83.15.0 255.255.255.192 10.83.16.66
+ip route 10.83.15.128 255.255.255.192 10.83.16.66
+ip route 10.83.16.0 255.255.255.224 10.83.16.66
+ip route 10.83.16.48 255.255.255.248 10.83.16.66
+ip route 10.83.16.72 255.255.255.248 10.83.16.66
+ip route 10.83.16.80 255.255.255.240 10.83.16.66
+end
+write memory

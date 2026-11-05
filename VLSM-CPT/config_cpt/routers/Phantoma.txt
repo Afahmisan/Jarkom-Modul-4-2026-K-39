@@ -1,0 +1,19 @@
+enable
+configure terminal
+hostname Phantoma
+interface FastEthernet0/0
+ip address 10.83.16.86 255.255.255.252
+no shutdown
+exit
+interface FastEthernet0/1
+ip address 10.83.16.1 255.255.255.224
+no shutdown
+exit
+interface FastEthernet1/0
+ip address 10.83.16.89 255.255.255.252
+no shutdown
+exit
+ip route 10.83.15.0 255.255.255.192 10.83.16.90
+ip route 0.0.0.0 0.0.0.0 10.83.16.85
+end
+write memory
