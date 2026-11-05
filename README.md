@@ -23,34 +23,31 @@ Pada praktikum Modul 4 ini (*Serial Experiments Lain — Layer:04: The Wired Exp
 
 ### Struktur Direktori Repository:
 ```text
-├── VLSM-CPT/                              # Bagian 1: Simulasi VLSM (Cisco Packet Tracer)
-│   ├── config_cpt/                       # Konfigurasi Cisco IOS CLI per-router & daftar IP host
-│   │   ├── routers/                      # File skrip CLI (.txt) 13 router
-│   │   └── daftar_ip_host_cpt.txt        # Tabel alokasi IP seluruh 25 host CPT
-│   ├── script_bash/                      # Skrip otomatisasi environment Linux / GNS3
-│   │   ├── hosts/                        # Skrip penetapan IP & gateway 25 host
-│   │   ├── routers/                      # Skrip sysctl forward, flush, & static routing 13 router
-│   │   ├── hitung_vlsm.sh                # Skrip kalkulator tree VLSM
-│   │   └── test_ping_semua.sh            # Skrip matriks pengujian konektivitas antar-node
-│   ├── Modul4_VLSM_10.83.pkt             # File Cisco Packet Tracer siap uji (VLSM 10.83)
-│   ├── bagus.pkt                         # Salinan file CPT terverifikasi (full reachability)
-│   ├── Template_Modul4_Kelompok_10.83.xlsx # Lembar kerja resmi perhitungan VLSM K-39
-│   └── tree_pembagian_ip_vlsm_10.83.png  # Diagram visual pohon alokasi VLSM
-├── CIDR/                                  # Bagian 2: Implementasi CIDR & Supernetting
-│   ├── config/                           # Folder konfigurasi node skenario CIDR
-│   ├── scripts/                          # Skrip routing supernetting CIDR
-│   └── README.md                         # Panduan pengerjaan bagian CIDR
-├── images/                               # Tangkapan layar bukti verifikasi & topologi
-│   ├── cyberia_cli.jpg                   # Bukti eksekusi CLI Cyberia & routing table
-│   ├── pdu_test.png                      # Bukti pengujian Simple PDU awal (Failed saat proses ARP)
-│   ├── pdu_test_successful.png           # Bukti pengujian Simple PDU sukses (Successful setelah 4 hop ARP)
-│   ├── pengujian_ping_cmd.png            # Bukti pengujian ping CLI Command Prompt PC Karl (0% loss)
-│   ├── topo-modul4-cpt.png               # Tangkapan layar topologi CPT
-│   ├── topo-modul4-gns.png               # Tangkapan layar topologi GNS3
-│   └── tree_pembagian_ip_vlsm_10.83.png  # Diagram visual pohon alokasi VLSM
-├── .gitignore                            # Filter file temporer Excel & OS
-└── README.md                             # Laporan resmi praktikum Modul 4```
-````
+├── VLSM-CPT/                               # Folder Induk Paket Simulasi & Skrip
+│   ├── config_cpt/                        # Konfigurasi Cisco IOS CLI per-router & daftar IP host
+│   │   ├── routers/                       # File skrip CLI (.txt) 13 router
+│   │   └── daftar_ip_host_cpt.txt         # Tabel alokasi IP seluruh 25 host CPT
+│   ├── script_bash/                       # Skrip otomatisasi environment Linux / GNS3
+│   │   ├── hosts/                         # Skrip penetapan IP & gateway 25 host
+│   │   ├── routers/                       # Skrip sysctl forward, flush, & static routing 13 router
+│   │   ├── hitung_vlsm.sh                 # Skrip kalkulator tree VLSM
+│   │   └── test_ping_semua.sh             # Skrip matriks pengujian konektivitas antar-node
+│   ├── Modul4_VLSM_10.83.pkt              # File Cisco Packet Tracer siap uji (VLSM 10.83)
+│   ├── bagus.pkt                          # Salinan file CPT terverifikasi (full reachability)
+│   ├── Template_Modul4_Kelompok_10.83.xlsx  # Lembar kerja resmi perhitungan VLSM K-39
+│   └── tree_pembagian_ip_vlsm_10.83.png   # Diagram visual pohon alokasi VLSM
+├── images/                                # Tangkapan layar bukti verifikasi & topologi
+│   ├── cyberia_cli.jpg                    # Bukti eksekusi CLI Cyberia & routing table
+│   ├── pdu_test.png                       # Bukti pengujian Simple PDU awal (Failed saat proses ARP)
+│   ├── pdu_test_successful.png            # Bukti pengujian Simple PDU sukses (Successful setelah 4 hop ARP)
+│   ├── pengujian_ping_cmd.png             # Bukti pengujian ping CLI Command Prompt PC Karl (0% loss)
+│   ├── topo-modul4-cpt.png                # Tangkapan layar topologi CPT
+│   ├── topo-modul4-gns.png                # Tangkapan layar topologi GNS3
+│   └── tree_pembagian_ip_vlsm_10.83.png   # Diagram visual pohon alokasi VLSM
+├── .gitignore                             # Filter file temporer Excel & OS
+└── README.md                              # Laporan resmi praktikum Modul 4
+```
+
 ---
 
 ### Tabel Alokasi IP Address Host:
@@ -103,31 +100,31 @@ Pada praktikum Modul 4 ini (*Serial Experiments Lain — Layer:04: The Wired Exp
 
 ---
 
-## Soal 1
+## 1. Analisis Kebutuhan Host & Pembagian Subnet
 
-Identifikasi seluruh segmen jaringan pada topologi The Wired, tentukan jumlah host pada tiap node, dan hitung kebutuhan IP riil untuk masing-masing subnet dengan menjumlahkan total host dan jumlah interface router yang terhubung pada subnet tersebut. Urutkan seluruh subnet dari kebutuhan terbesar ke terkecil sebagai landasan perhitungan VLSM.
+Identifikasi seluruh segmen jaringan pada topologi The Wired dilakukan dengan menghitung kebutuhan IP riil untuk masing-masing subnet (menjumlahkan total host dan antarmuka router yang terhubung). Seluruh subnet diurutkan dari kebutuhan terbesar ke terkecil sebagai landasan perhitungan VLSM.
 
 ### Konfigurasi dan Penjelasan:
 Sesuai ketentuan praktikum, setiap interface router yang bertindak sebagai *default gateway* atau penghubung antar-node dihitung sebagai 1 kebutuhan IP. Khusus untuk subnet bersama `A14` (`Wired > Switch2 > Psyche, Copland, Schumann`), terdapat 4 interface router yang berada dalam satu *broadcast domain* yang sama sehingga kebutuhan IP-nya bernilai 4.
 
 Urutan kebutuhan IP terbesar ke terkecil:
-1. `A1` (881 IP) $\rightarrow$ 700 (Karl) + 180 (Lin) + 1 router
-2. `A2` (514 IP) $\rightarrow$ 510 (Omnipresence) + 3 (Denpa) + 1 router
-3. `A3` (301 IP) $\rightarrow$ 300 (Masayuki) + 1 router
-4. `A4` (267 IP) $\rightarrow$ 260 (Collective) + 6 (Ghost) + 1 router
-5. `A5` (254 IP) $\rightarrow$ 208 (Alice) + 45 (Reika) + 1 router
-6. `A6` (143 IP) $\rightarrow$ 120 (Yasuo) + 18 (Miho) + 4 (Kuma) + 1 router
-7. `A7` (126 IP) $\rightarrow$ 95 (JJ) + 30 (MyuMyu) + 1 router
-8. `A8` (99 IP) $\rightarrow$ 77 (Lilith) + 21 (Specter) + 1 router
-9. `A9` (62 IP) $\rightarrow$ 57 (Lain) + 4 (Mika) + 1 router
-10. `A10` (58 IP) $\rightarrow$ 57 (Taro) + 1 router
-11. `A11` (33 IP) $\rightarrow$ 23 (Chisa) + 9 (Hodgeson) + 1 router
-12. `A12` (32 IP) $\rightarrow$ 31 (Juri) + 1 router
-13. `A13` (15 IP) $\rightarrow$ 14 (Semi) + 1 router
-14. `A14` (4 IP) $\rightarrow$ 4 router interface
-15. `A15` (4 IP) $\rightarrow$ 3 (Akashic) + 1 router
-16. `A16` (3 IP) $\rightarrow$ 2 (Eiri) + 1 router
-17. `A17` s.d. `A25` (masing-masing 2 IP) $\rightarrow$ Point-to-point 2 router interface.
+1. `A1` (881 IP) → 700 (Karl) + 180 (Lin) + 1 router
+2. `A2` (514 IP) → 510 (Omnipresence) + 3 (Denpa) + 1 router
+3. `A3` (301 IP) → 300 (Masayuki) + 1 router
+4. `A4` (267 IP) → 260 (Collective) + 6 (Ghost) + 1 router
+5. `A5` (254 IP) → 208 (Alice) + 45 (Reika) + 1 router
+6. `A6` (143 IP) → 120 (Yasuo) + 18 (Miho) + 4 (Kuma) + 1 router
+7. `A7` (126 IP) → 95 (JJ) + 30 (MyuMyu) + 1 router
+8. `A8` (99 IP) → 77 (Lilith) + 21 (Specter) + 1 router
+9. `A9` (62 IP) → 57 (Lain) + 4 (Mika) + 1 router
+10. `A10` (58 IP) → 57 (Taro) + 1 router
+11. `A11` (33 IP) → 23 (Chisa) + 9 (Hodgeson) + 1 router
+12. `A12` (32 IP) → 31 (Juri) + 1 router
+13. `A13` (15 IP) → 14 (Semi) + 1 router
+14. `A14` (4 IP) → 4 router interface
+15. `A15` (4 IP) → 3 (Akashic) + 1 router
+16. `A16` (3 IP) → 2 (Eiri) + 1 router
+17. `A17` s.d. `A25` (masing-masing 2 IP) → Point-to-point 2 router interface.
 
 Total alokasi alamat yang dibutuhkan adalah **2.814 IP**.
 
@@ -156,9 +153,9 @@ Lembar perhitungan alokasi subnet dapat diakses online melalui [Google Spreadshe
 
 ---
 
-## Soal 2
+## 2. Desain Pohon Subnetting VLSM (Subnet Tree)
 
-Susun struktur pohon biner pembagian alamat IP (*VLSM Subnet Tree*) berbasis blok alamat kelompok 10.83.0.0/19. Tunjukkan hierarki pemecahan blok besar menjadi subnet-subnet yang lebih kecil tanpa celah (*zero gap*) sehingga tidak ada alamat yang terbuang.
+Struktur pohon biner pembagian alamat IP (*VLSM Subnet Tree*) disusun berbasis alokasi blok alamat kelompok `10.83.0.0/19`. Hierarki pemecahan blok besar ke subnet-subnet yang lebih kecil dirancang rapat tanpa celah (*zero gap*) agar efisiensi penggunaan alamat maksimal.
 
 ### Konfigurasi dan Penjelasan:
 Blok alamat awal yang mencakup seluruh kebutuhan adalah `10.83.0.0/19` (total 8.192 alamat):
@@ -175,9 +172,9 @@ Diagram Pohon Pembagian IP VLSM:
 
 ---
 
-## Soal 3
+## 3. Rencana Pengalamatan & Tabel Subnetting VLSM (A1 - A25)
 
-Rancang tabel subnetting VLSM lengkap yang memuat Subnet ID, Subnet Mask, Range Usable IP Host, Broadcast IP, serta kapasitas usable untuk ke-25 subnet.
+Rancangan tabel subnetting VLSM komprehensif yang memuat Subnet ID, Subnet Mask, Range Usable IP Host, Broadcast IP, serta kapasitas usable untuk seluruh 25 subnet (`A1` s.d. `A25`).
 
 ### Konfigurasi dan Penjelasan:
 Penomoran IP dibuat berurutan rapat tanpa ada celah (*contiguous zero gap*). Subnet pertama `A1` dimulai tepat pada `10.83.0.0`, dan subnet terakhir `A25` berakhir pada `10.83.16.91`.
@@ -215,9 +212,9 @@ Tabel VLSM Lengkap:
 
 ---
 
-## Soal 4
+## 4. Konfigurasi Router Gateway Cyberia & Core Hub Wired
 
-Konfigurasikan router utama Cyberia dan hub sentral Wired. Cyberia berfungsi sebagai gerbang utama penghubung Cloud dan LAN A7, sedangkan Wired mendistribusikan lalu lintas ke seluruh cabang jaringan. Pasang rute statis seefisien mungkin dengan memanfaatkan rute default dan supernetting/agregasi.
+Konfigurasi perutean pada router utama Cyberia dan hub sentral Wired. Cyberia berfungsi sebagai gerbang utama penghubung Cloud dan LAN A7, sedangkan Wired mendistribusikan lalu lintas ke seluruh cabang jaringan dengan rute statis efisien memanfaatkan rute default dan agregasi rute.
 
 ### Konfigurasi dan Penjelasan:
 - **Cyberia**: Memiliki rute langsung ke `A7` (`10.83.14.0/25`) dan link `A17` ke Wired. Semua lalu lintas menuju subnet lainnya dialihkan ke Wired melalui rute default `0.0.0.0 0.0.0.0 10.83.16.58`.
@@ -291,9 +288,9 @@ Tampilan status antarmuka dan rute statis pada router Cyberia:
 
 ---
 
-## Soal 5
+## 5. Konfigurasi Router Cabang Barat (Psyche, Copland, Schumann, Accela)
 
-Konfigurasikan router-router cabang kiri: Psyche, Copland, Schumann, dan Accela yang terhubung melalui Switch2 (Subnet A14). Pastikan komunikasi antar-router dalam segmen A14 serta rute balik ke seluruh jaringan Wired berjalan tanpa loop.
+Konfigurasi router-router cabang kiri/barat: Psyche, Copland, Schumann, dan Accela yang terhubung melalui Switch2 (Subnet A14 shared broadcast domain). Komunikasi antar-router dalam segmen A14 serta rute balik ke seluruh jaringan Wired dipastikan berjalan tanpa routing loop.
 
 ### Konfigurasi dan Penjelasan:
 Keempat router ini berbagi subnet `10.83.16.32/29` pada Switch2:
@@ -399,9 +396,9 @@ write memory
 
 ---
 
-## Soal 6
+## 6. Konfigurasi Router Cabang Timur (Navi)
 
-Konfigurasikan router Navi sebagai gerbang cabang timur yang melayani tiga segmen LAN: Switch6 (A5), Switch7 (A10), dan Switch8 (A6).
+Konfigurasi router Navi sebagai gerbang cabang timur yang melayani tiga segmen LAN: Switch6 (A5), Switch7 (A10), dan Switch8 (A6).
 
 ### Konfigurasi dan Penjelasan:
 Navi terhubung langsung ke Wired melalui link point-to-point `A18` (`10.83.16.60/30`). Karena Navi hanya memiliki satu jalur keluar masuk (*stub network*), seluruh paket ke luar jaringan lokalnya cukup diarahkan melalui satu rute default `0.0.0.0 0.0.0.0 10.83.16.61` ke router Wired.
@@ -436,9 +433,9 @@ write memory
 
 ---
 
-## Soal 7
+## 7. Konfigurasi Rantai Router Backbone Selatan (Tachibana s.d. Shibuya)
 
-Konfigurasikan rantai router selatan secara serial: Tachibana $\rightarrow$ Deus $\rightarrow$ Protocol7 $\rightarrow$ Knights $\rightarrow$ Phantoma $\rightarrow$ Shibuya. Setiap router melayani LAN lokalnya masing-masing serta meneruskan lalu lintas antar-hop secara bolak-balik tanpa adanya paket yang terputus di tengah jalan.
+Konfigurasi rantai router selatan secara serial: Tachibana → Deus → Protocol7 → Knights → Phantoma → Shibuya. Setiap router melayani LAN lokalnya masing-masing serta meneruskan lalu lintas antar-hop secara bolak-balik tanpa adanya paket yang terputus di tengah jalan.
 
 ### Konfigurasi dan Penjelasan:
 Setiap router pada rantai ini memiliki:
@@ -598,12 +595,12 @@ write memory
 
 ---
 
-## Soal 8
+## 8. Alokasi Pengalamatan Statis Host (25 Perangkat)
 
-Tetapkan konfigurasi pengalamatan statis pada seluruh 25 host (PC, Laptop, Server). Pastikan setiap host menerima IP usable pertama setelah IP router, subnet mask yang sesuai dengan ukuran subnetnya, serta default gateway yang tepat mengarah ke router gateway lokalnya.
+Konfigurasi pengalamatan statis pada seluruh 25 host (PC, Laptop, Server). Setiap host menerima IP usable pertama setelah IP antarmuka router, subnet mask yang sesuai dengan ukuran subnetnya, serta default gateway yang tepat mengarah ke router gateway lokalnya.
 
 ### Konfigurasi dan Penjelasan:
-Seluruh 25 host dikonfigurasi melalui menu **Desktop $\rightarrow$ IP Configuration** pada Cisco Packet Tracer (atau file teks [daftar_ip_host_cpt.txt](VLSM-CPT/config_cpt/daftar_ip_host_cpt.txt)). Tidak ada host yang bentrok (*IP conflict*) dan seluruh gateway mengarah tepat ke IP antarmuka router pada segmennya.
+Seluruh 25 host dikonfigurasi melalui menu **Desktop → IP Configuration** pada Cisco Packet Tracer (atau file teks [daftar_ip_host_cpt.txt](VLSM-CPT/config_cpt/daftar_ip_host_cpt.txt)). Tidak ada host yang bentrok (*IP conflict*) dan seluruh gateway mengarah tepat ke IP antarmuka router pada segmennya.
 
 ### Bukti Verifikasi:
 Contoh konfigurasi IP host pada PC `Karl (700 host)`:
@@ -618,9 +615,9 @@ Contoh konfigurasi IP host pada PC `JJ (95 host)`:
 
 ---
 
-## Soal 9
+## 9. Pengujian Konektivitas & Analisis Multi-Hop ARP
 
-Lakukan pengujian konektivitas end-to-end antar-subnet dan dalam subnet (*intra-subnet* dan *inter-subnet*). Analisis perilaku protokol ARP (*Address Resolution Protocol*) dan STP (*Spanning Tree Protocol*) di Cisco Packet Tracer yang menyebabkan pengiriman paket pertama berstatus "Failed".
+Pengujian konektivitas end-to-end antar-subnet dan dalam subnet (*intra-subnet* dan *inter-subnet*). Bagian ini memuat analisis perilaku protokol ARP (*Address Resolution Protocol*) dan STP (*Spanning Tree Protocol*) di Cisco Packet Tracer yang menyebabkan pengiriman paket pertama berstatus "Failed" sebelum resolusi ARP antar-hop selesai.
 
 ### Konfigurasi dan Penjelasan:
 Pada pengujian konektivitas end-to-end:
@@ -628,14 +625,14 @@ Pada pengujian konektivitas end-to-end:
    Pengujian antara `Karl (700 host)` menuju `Lin (180 host)` pada Subnet `A1` langsung berstatus **Successful** pada percobaan pertama (`Num 0`) karena kedua host berada pada switch yang sama (`Switch3`) tanpa melewati proses routing antar-hop.
 2. **Inter-Subnet (Lintas Subnet / Beda Router - Kasus Karl menuju JJ)**:
    Jalur komunikasi antara `Karl (700 host)` di cabang Psyche menuju `JJ (95 host)` di cabang Cyberia melewati 3 router dan 4 segmen/hop:
-   $$\text{Karl} \xrightarrow{\text{Hop 1}} \text{Psyche} \xrightarrow{\text{Hop 2}} \text{Wired} \xrightarrow{\text{Hop 3}} \text{Cyberia} \xrightarrow{\text{Hop 4}} \text{JJ}$$
+   **Karl (Host)** → *[Hop 1]* **Psyche** → *[Hop 2]* **Wired** → *[Hop 3]* **Cyberia** → *[Hop 4]* **JJ (Host)**
    - **Mekanisme Multi-Hop ARP Drop**: Pada sistem Cisco IOS, jika router menerima paket IP menuju next-hop yang belum tercatat pada tabel ARP (*ARP Cache*), router akan menahan broadcast *ARP Request* dan langsung membuang (*drop*) paket ICMP yang sedang mengantre (karena buffer ICMP Cisco IOS tidak menahan paket selama proses ARP resolution).
    - **Kenapa Butuh 4 Kali Klik Fire / Percobaan?**
      Amplop *Simple PDU* (`P`) pada Cisco Packet Tracer hanya mengirimkan **1 paket ICMP Echo Request** per klik:
-     * **Klik ke-1**: Mengisi ARP tabel antara `Karl` $\leftrightarrow$ `Psyche` (Hop 1). Paket ICMP pertama dibuang $\rightarrow$ Status: `Failed`.
-     * **Klik ke-2**: Paket lolos ke `Psyche`, namun `Psyche` belum memiliki MAC `Wired` pada Subnet A14 (Hop 2). Paket dibuang untuk ARP $\rightarrow$ Status: `Failed`.
-     * **Klik ke-3**: Paket lolos ke `Wired`, namun `Wired` belum memiliki MAC `Cyberia` pada Subnet A21 (Hop 3). Paket dibuang untuk ARP $\rightarrow$ Status: `Failed`.
-     * **Klik ke-4**: Seluruh hop hingga `Cyberia` $\leftrightarrow$ `JJ` (Hop 4) telah berhasil memetakan MAC address. Paket ICMP Echo Request sampai ke tujuan dan dibalas dengan ICMP Echo Reply secara utuh $\rightarrow$ Status berubah menjadi **`Successful`**!
+     * **Klik ke-1**: Mengisi ARP tabel antara `Karl` ↔ `Psyche` (Hop 1). Paket ICMP pertama dibuang → Status: `Failed`.
+     * **Klik ke-2**: Paket lolos ke `Psyche`, namun `Psyche` belum memiliki MAC `Wired` pada Subnet A14 (Hop 2). Paket dibuang untuk ARP → Status: `Failed`.
+     * **Klik ke-3**: Paket lolos ke `Wired`, namun `Wired` belum memiliki MAC `Cyberia` pada Subnet A21 (Hop 3). Paket dibuang untuk ARP → Status: `Failed`.
+     * **Klik ke-4**: Seluruh hop hingga `Cyberia` ↔ `JJ` (Hop 4) telah berhasil memetakan MAC address. Paket ICMP Echo Request sampai ke tujuan dan dibalas dengan ICMP Echo Reply secara utuh → Status berubah menjadi **`Successful`**!
 
 ### Bukti Verifikasi:
 
@@ -674,13 +671,13 @@ Approximate round trip times in milli-seconds:
 
 **Analisis Hasil Output Ping:**
 1. **Packet Loss**: `0% loss` (4 paket terkirim, 4 paket diterima sempurna tanpa timeout).
-2. **Nilai TTL = 125**: Nilai Time To Live awal host adalah `128`. Paket melintasi 3 router hop (`Psyche` $\rightarrow$ `Wired` $\rightarrow$ `Cyberia`), sehingga nilai TTL berkurang 3 ($128 - 3 = 125$), membuktikan paket telah melalui proses perutean *Layer 3* yang benar.
+2. **Nilai TTL = 125**: Nilai Time To Live awal host adalah `128`. Paket melintasi 3 router hop (`Psyche` → `Wired` → `Cyberia`), sehingga nilai TTL berkurang 3 ($128128 - 3 = 125), membuktikan paket telah melalui proses perutean *Layer 3* yang benar.
 
 ---
 
-## Soal 10
+## 10. Otomatisasi Lingkungan Jaringan (Skrip Linux Bash & GNS3)
 
-Sediakan skrip otomatisasi Linux Bash yang siap dijalankan pada lingkungan virtualisasi GNS3 (Docker debinet/alpinet) untuk seluruh router dan host, serta skrip pengujian matriks ping otomatis.
+Implementasi skrip otomatisasi Linux Bash yang siap dijalankan pada lingkungan virtualisasi GNS3 (Docker debinet/alpinet) untuk seluruh router dan host, serta skrip pengujian matriks ping otomatis.
 
 ### Konfigurasi dan Penjelasan:
 Seluruh skrip diletakkan pada direktori `VLSM-CPT/script_bash/`:
@@ -767,7 +764,7 @@ ip route replace default via 10.83.0.1
 
 Pengerjaan lanjutan mengenai implementasi **CIDR (*Classless Inter-Domain Routing*)** dan **Supernetting** dilakukan pada direktori terpisah untuk memisahkan skenario pengalamatan VLSM dan CIDR secara rapi:
 
-* **Folder Kerja CIDR**: [`CIDR/`](CIDR/)
-* **Penanggung Jawab**: Muhammad Atallah Mas'udi (`5027251071`)
-* **Dokumentasi & Panduan Pengerjaan CIDR**: [`CIDR/README.md`](CIDR/README.md)
-* **Tabel Lembar Kerja**: Tersedia pada Sheet `Penggabungan - CIDR` dan `Pembagian IP - CIDR` di [Google Spreadsheet Resmi K-39](https://docs.google.com/spreadsheets/d/1XlCe701xFm7mK43r-sJaImQ2owLYlwCm/edit?usp=sharing&ouid=116660344884914721699&rtpof=true&sd=true).
+* **Folder Kerja CIDR**: [CIDR/](CIDR/)
+* **Penanggung Jawab**: Muhammad Atallah Mas'udi (5027251071)
+* **Dokumentasi & Panduan Pengerjaan CIDR**: [CIDR/README.md](CIDR/README.md)
+* **Tabel Lembar Kerja**: Tersedia pada Sheet Penggabungan - CIDR dan Pembagian IP - CIDR di [Google Spreadsheet Resmi K-39](https://docs.google.com/spreadsheets/d/1XlCe701xFm7mK43r-sJaImQ2owLYlwCm/edit?usp=sharing&ouid=116660344884914721699&rtpof=true&sd=true).
