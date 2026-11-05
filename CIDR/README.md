@@ -9,7 +9,7 @@
 
 Pada praktikum Modul 4 ini (*Serial Experiments Lain — Layer:04: The Wired Expansion*), skenario **CIDR (*Classless Inter-Domain Routing*)** dan **Supernetting** diimplementasikan pada simulator **GNS3** menggunakan *container* Docker **`ardhptr21/debinet:latest`**. Seluruh entitas dalam jaringan *The Wired* terhubung melalui router gerbang utama **Cyberia** yang tersambung ke dunia luar melalui node **NAT1** (`eth0`), mengalir ke router pusat **Wired**, lalu bercabang menuju router **Navi** di timur, rantai **Tachibana** s.d. **Shibuya** di selatan, serta segmen bersama (*shared broadcast domain*) **Switch2** milik **Psyche**, **Copland**, dan **Schumann** di barat:
 
-![Topologi GNS3](../images/topo-modul4-gns.png)
+![Topologi GNS3](../images/Screenshot 2026-11-05 185719.png)
 
 ### Parameter Global GNS3 & CIDR:
 - **Prefix IP Kelompok K-39**: `10.83.0.0/16` (Supernet Induk Hasil Penggabungan `H1`: `10.83.0.0/19`)
@@ -28,7 +28,6 @@ Pada praktikum Modul 4 ini (*Serial Experiments Lain — Layer:04: The Wired Exp
 │   │   ├── routers/                         # Skrip ip_forward, iptables NAT, & static routing 13 router (.sh)
 │   │   ├── hitung_cidr.sh                   # Skrip ringkasan tahapan penggabungan & supernetting CIDR
 │   │   └── test_ping_semua.sh               # Skrip matriks pengujian konektivitas antar-node di GNS3
-│   ├── auto_gns3_modul4.py                  # Skrip Python otomatisasi penuh GNS3 REST API & Telnet Console
 │   ├── Modul4_CIDR_10.83.gns3project        # File GNS3 Portable Project siap uji (CIDR 10.83)
 │   ├── Jarkom-Modul-4-2026-K-39.xlsx        # Lembar kerja resmi perhitungan VLSM & CIDR Kelompok K-39
 │   ├── tree_pembagian_ip_cidr_10.83.png     # Diagram visual pohon penggabungan & alokasi IP CIDR
