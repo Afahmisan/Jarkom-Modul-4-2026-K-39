@@ -2,8 +2,8 @@
 
 | Nama | NRP | Pengerjaan | 
 |---|---|---|
-| Asfia Fahmisan | 5027251043 | Perhitungan VLSM, Subnet Tree, Konfigurasi Router Cyberia s.d. Accela (A1 - A12) |
-| Muhammad Atallah Mas'udi | 5027251071 | Konfigurasi Router Tachibana s.d. Shibuya (A13 - A25), Alokasi Host, Pengujian Konektivitas | 
+| Asfia Fahmisan | 5027251043 | VLSM |
+| Muhammad Atallah Mas'udi | CIDR | 
 
 ---
 
