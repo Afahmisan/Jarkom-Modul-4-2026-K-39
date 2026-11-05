@@ -3,7 +3,7 @@
 | Nama | NRP | Pengerjaan | 
 |---|---|---|
 | Asfia Fahmisan | 5027251043 | VLSM |
-| Muhammad Atallah Mas'udi | CIDR | 
+| Muhammad Atallah Mas'udi | 5027251071| CIDR | 
 
 ---
 
