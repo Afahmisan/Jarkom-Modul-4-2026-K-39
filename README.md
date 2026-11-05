@@ -3,7 +3,7 @@
 | Nama | NRP | Pengerjaan | 
 |---|---|---|
 | Asfia Fahmisan | 5027251043 | VLSM |
-| Muhammad Atallah Mas'udi | 5027251071| CIDR | 
+| Muhammad Atallah Mas'udi | 5027251071 | CIDR | 
 
 ---
 
@@ -23,30 +23,33 @@ Pada praktikum Modul 4 ini (*Serial Experiments Lain — Layer:04: The Wired Exp
 
 ### Struktur Direktori Repository:
 ```text
-├── VLSM-CPT/                               # Folder Induk Paket Simulasi & Skrip
-│   ├── config_cpt/                        # Konfigurasi Cisco IOS CLI per-router & daftar IP host
-│   │   ├── routers/                       # File skrip CLI (.txt) 13 router
-│   │   └── daftar_ip_host_cpt.txt         # Tabel alokasi IP seluruh 25 host CPT
-│   ├── script_bash/                       # Skrip otomatisasi environment Linux / GNS3
-│   │   ├── hosts/                         # Skrip penetapan IP & gateway 25 host
-│   │   ├── routers/                       # Skrip sysctl forward, flush, & static routing 13 router
-│   │   ├── hitung_vlsm.sh                 # Skrip kalkulator tree VLSM
-│   │   └── test_ping_semua.sh             # Skrip matriks pengujian konektivitas antar-node
-│   ├── Modul4_VLSM_10.83.pkt              # File Cisco Packet Tracer siap uji (VLSM 10.83)
-│   ├── bagus.pkt                          # Salinan file CPT terverifikasi (full reachability)
-│   ├── Template_Modul4_Kelompok_10.83.xlsx  # Lembar kerja resmi perhitungan VLSM K-39
-│   └── tree_pembagian_ip_vlsm_10.83.png   # Diagram visual pohon alokasi VLSM
-├── images/                                # Tangkapan layar bukti verifikasi & topologi
-│   ├── cyberia_cli.jpg                    # Bukti eksekusi CLI Cyberia & routing table
-│   ├── pdu_test.png                       # Bukti pengujian Simple PDU awal (Failed saat proses ARP)
-│   ├── pdu_test_successful.png            # Bukti pengujian Simple PDU sukses (Successful setelah 4 hop ARP)
-│   ├── pengujian_ping_cmd.png             # Bukti pengujian ping CLI Command Prompt PC Karl (0% loss)
-│   ├── topo-modul4-cpt.png                # Tangkapan layar topologi CPT
-│   ├── topo-modul4-gns.png                # Tangkapan layar topologi GNS3
-│   └── tree_pembagian_ip_vlsm_10.83.png   # Diagram visual pohon alokasi VLSM
-├── .gitignore                             # Filter file temporer Excel & OS
-└── README.md                              # Laporan resmi praktikum Modul 4
-```
+├── VLSM-CPT/                              # Bagian 1: Simulasi VLSM (Cisco Packet Tracer)
+│   ├── config_cpt/                       # Konfigurasi Cisco IOS CLI per-router & daftar IP host
+│   │   ├── routers/                      # File skrip CLI (.txt) 13 router
+│   │   └── daftar_ip_host_cpt.txt        # Tabel alokasi IP seluruh 25 host CPT
+│   ├── script_bash/                      # Skrip otomatisasi environment Linux / GNS3
+│   │   ├── hosts/                        # Skrip penetapan IP & gateway 25 host
+│   │   ├── routers/                      # Skrip sysctl forward, flush, & static routing 13 router
+│   │   ├── hitung_vlsm.sh                # Skrip kalkulator tree VLSM
+│   │   └── test_ping_semua.sh            # Skrip matriks pengujian konektivitas antar-node
+│   ├── Modul4_VLSM_10.83.pkt             # File Cisco Packet Tracer siap uji (VLSM 10.83)
+│   ├── bagus.pkt                         # Salinan file CPT terverifikasi (full reachability)
+│   ├── Template_Modul4_Kelompok_10.83.xlsx # Lembar kerja resmi perhitungan VLSM K-39
+│   └── tree_pembagian_ip_vlsm_10.83.png  # Diagram visual pohon alokasi VLSM
+├── CIDR/                                  # Bagian 2: Implementasi CIDR & Supernetting
+│   ├── config/                           # Folder konfigurasi node skenario CIDR
+│   ├── scripts/                          # Skrip routing supernetting CIDR
+│   └── README.md                         # Panduan pengerjaan bagian CIDR
+├── images/                               # Tangkapan layar bukti verifikasi & topologi
+│   ├── cyberia_cli.jpg                   # Bukti eksekusi CLI Cyberia & routing table
+│   ├── pdu_test.png                      # Bukti pengujian Simple PDU awal (Failed saat proses ARP)
+│   ├── pdu_test_successful.png           # Bukti pengujian Simple PDU sukses (Successful setelah 4 hop ARP)
+│   ├── pengujian_ping_cmd.png            # Bukti pengujian ping CLI Command Prompt PC Karl (0% loss)
+│   ├── topo-modul4-cpt.png               # Tangkapan layar topologi CPT
+│   ├── topo-modul4-gns.png               # Tangkapan layar topologi GNS3
+│   └── tree_pembagian_ip_vlsm_10.83.png  # Diagram visual pohon alokasi VLSM
+├── .gitignore                            # Filter file temporer Excel & OS
+└── README.md                             # Laporan resmi praktikum Modul 4```
 
 ---
 
@@ -757,3 +760,14 @@ ip addr add 10.83.0.2/22 dev eth0
 ip link set eth0 up
 ip route replace default via 10.83.0.1
 ```
+
+---
+
+## Bagian 2: Penggabungan Rute & Supernetting CIDR
+
+Pengerjaan lanjutan mengenai implementasi **CIDR (*Classless Inter-Domain Routing*)** dan **Supernetting** dilakukan pada direktori terpisah untuk memisahkan skenario pengalamatan VLSM dan CIDR secara rapi:
+
+* **Folder Kerja CIDR**: [`CIDR/`](CIDR/)
+* **Penanggung Jawab**: Muhammad Atallah Mas'udi (`5027251071`)
+* **Dokumentasi & Panduan Pengerjaan CIDR**: [`CIDR/README.md`](CIDR/README.md)
+* **Tabel Lembar Kerja**: Tersedia pada Sheet `Penggabungan - CIDR` dan `Pembagian IP - CIDR` di [Google Spreadsheet Resmi K-39](https://docs.google.com/spreadsheets/d/1XlCe701xFm7mK43r-sJaImQ2owLYlwCm/edit?usp=sharing&ouid=116660344884914721699&rtpof=true&sd=true).
